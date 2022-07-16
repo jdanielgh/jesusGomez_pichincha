@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
     },
     synchronize: true,
     logging: false,
-    entities: ["src/entity/**/*.ts"],
-    migrations: ["src/migration/**/*.ts"],
-    subscribers: ["src/subscriber/**/*.ts"]
+    entities: ["src/infraestructure/typeOrmData/entity/**/*.ts"],
+    migrations: ["src/infraestructure/typeOrmData/migration/**/*.ts"],
+    subscribers: ["src/infraestructure/typeOrmData/subscriber/**/*.ts"]
 })

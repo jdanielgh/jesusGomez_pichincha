@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Organization {
-    @PrimaryGeneratedColumn()
+@Entity('organization')
+export class OrganizationDBO {
+    @PrimaryGeneratedColumn({name: 'id_organization'})
     idOrganization: number;
 
     @Column()
