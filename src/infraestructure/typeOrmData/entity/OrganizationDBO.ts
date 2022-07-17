@@ -1,8 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { IdOrganization } from "../../../organization/application/domain/idOrganization";
+import { NameOrganization } from "../../../organization/application/domain/NameOrganization";
+import { Organization } from "../../../organization/application/domain/Organization";
+import { StatusOrganization } from "../../../organization/application/domain/StatusOrganization";
 
 @Entity('organization')
 export class OrganizationDBO {
-    @PrimaryGeneratedColumn({name: 'id_organization'})
+    @PrimaryColumn({name: 'id_organization'})
     idOrganization: number;
 
     @Column()
@@ -17,6 +21,22 @@ export class OrganizationDBO {
         this.status = status;
     }
 
+    toDomain(): Organization {
+        return new Organization(
+            new IdOrganization(this.idOrganization),
+            new NameOrganization(this.name),
+            new StatusOrganization(this.status)
+        );
+    }
+
+    static fromDomain(organization: Organization): OrganizationDBO {
+        return new OrganizationDBO(
+            organization.getId.getValue,
+            organization.getName.getValue,
+            organization.getStatus.getValue
+            );
+    }
+
     get getIdOrganization(): number {
         return this.idOrganization;
     }
@@ -27,5 +47,17 @@ export class OrganizationDBO {
 
     get getStatus(): number {
         return this.status;
+    }
+
+    set setIdOrganizacion(id: number) {
+        this.idOrganization = id;
+    }
+
+    set setName(name: string) {
+        this.name = name;
+    }
+
+    set setStatus(status: number) {
+        this.status = status;
     }
 }
