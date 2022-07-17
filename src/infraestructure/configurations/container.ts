@@ -5,6 +5,7 @@ import { AppDataSource } from "./datasource";
 import * as awilix from 'awilix';
 import { QueryOrganizationService } from "../../organization/application/services/QueryOrganizationService";
 import { DeleteOrganizationService } from "../../organization/application/services/DeleteOrganizationService";
+import { UpdateOrganizationService } from "../../organization/application/services/UpdateOrganizationService";
 
 const container = awilix.createContainer();
 
@@ -14,7 +15,8 @@ container.register({
     organizationRepository: awilix.asClass(SqlOrganizationRepository),
     createOrganizationUseCase: awilix.asClass(CreateOrganizationService),
     queryOrganizationUseCase: awilix.asClass(QueryOrganizationService),
-    deleteOrganizationUseCase: awilix.asClass(DeleteOrganizationService)
+    deleteOrganizationUseCase: awilix.asClass(DeleteOrganizationService),
+    updateOrganizationUseCase: awilix.asClass(UpdateOrganizationService)
 });
 
 export default container;

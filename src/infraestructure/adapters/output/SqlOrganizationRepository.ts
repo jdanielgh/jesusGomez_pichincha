@@ -37,8 +37,11 @@ export class SqlOrganizationRepository implements OrganizationRepository {
         return result.affected === 1;
     };
 
-    async update(key: IdOrganization): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async update(key: IdOrganization, organization: Organization): Promise<boolean> {
+        this.#logger.log('Executing SqlOrganizationRepository');
+        const organizationDBO = OrganizationDBO.fromDomain(organization);
+        const result = await this.#dataSource.update(key.getValue, organizationDBO);
+        return result.affected === 1;
     };
 
 }

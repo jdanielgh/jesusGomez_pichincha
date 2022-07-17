@@ -29,6 +29,10 @@ export class OrganizationDTO {
             organization.getStatus.getValue);
     }
 
+    static fromBodyRequest(body: {id: number, name: string, status: number}): OrganizationDTO {
+        return new OrganizationDTO(body.id, body.name, body.status); 
+    }
+
     get getId(): number {
         return this.id;
     }

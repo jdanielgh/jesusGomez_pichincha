@@ -1,5 +1,5 @@
 import express from 'express';
-import { CreateOrganizationUseCase, DeleteOrganizationUseCase, QueryOrganizationUseCase } from '../../organization/application/ports/input/OrganizationUseCases';
+import { CreateOrganizationUseCase, DeleteOrganizationUseCase, QueryOrganizationUseCase, UpdateOrganizationUseCase } from '../../organization/application/ports/input/OrganizationUseCases';
 import container from '../configurations/container';
 import { OrganizationDTO } from '../models/OrganizationDTO';
 
@@ -8,10 +8,11 @@ export default function OrganizationRouter(): express.Router {
     const createOrganizationUseCase = (container.resolve('createOrganizationUseCase') as CreateOrganizationUseCase);
     const queryOrganizationUseCase = (container.resolve('queryOrganizationUseCase') as QueryOrganizationUseCase);
     const deleteOrganizationUseCase = (container.resolve('deleteOrganizationUseCase') as DeleteOrganizationUseCase);
+    const updateOrganizationUseCase = (container.resolve('updateOrganizationUseCase') as UpdateOrganizationUseCase);
 
     Router.post('/', async (req: express.Request, res: express.Response) => {
         try {
-            const organizationDTO = new OrganizationDTO(req.body.id, req.body.name, req.body.status);
+            const organizationDTO = OrganizationDTO.fromBodyRequest(req.body);
             const organization = await createOrganizationUseCase.execute(organizationDTO);
             res.status(201).json(organization);
         } catch (error: any) {
@@ -45,6 +46,21 @@ export default function OrganizationRouter(): express.Router {
         try {
             const { id } = req.params;
             const result = await deleteOrganizationUseCase.execute(parseInt(id));
+            res.status(200).json(result);
+        } catch (error: any) {
+            if (error instanceof TypeError) {
+                res.status(400).send({message: error.message}); 
+            } else {
+                res.status(500).send({message: 'Error deleting data'});
+            }
+        }
+    });
+
+    Router.put('/:id', async (req: express.Request, res: express.Response) => {
+        try {
+            const organizationDTO = OrganizationDTO.fromBodyRequest(req.body);
+            const { id } = req.params;
+            const result = await updateOrganizationUseCase.execute({organizationDTO, key: parseInt(id)})
             res.status(200).json(result);
         } catch (error: any) {
             if (error instanceof TypeError) {
