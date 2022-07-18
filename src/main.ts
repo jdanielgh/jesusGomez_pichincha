@@ -4,6 +4,7 @@ import organizationRoute from './infraestructure/routes/OrganizationRouter';
 import { scopePerRequest } from "awilix-express";
 import container from "./infraestructure/configurations/container";
 import dotenv from "dotenv"
+import morgan from 'morgan';
 
 dotenv.config()
 
@@ -11,6 +12,7 @@ const app = express();
 const PORT = process.env.PORT ? process.env.PORT : 3000;
 app.use(express.json());
 app.use(scopePerRequest(container))
+app.use(morgan('combined'));
 
 // routes
 app.use('/organization', organizationRoute());
