@@ -16,7 +16,7 @@ container.register({
     dataSource: awilix.asValue(AppDataSource),
     axios: awilix.asValue(axios),
     organizationRepository: awilix.asClass(SqlOrganizationRepository),
-    GatewayVerificationAPI: awilix.asClass(GatewayVerificationAPI),
+    gatewayVerificationAPI: awilix.asClass(GatewayVerificationAPI),
     createOrganizationUseCase: awilix.asClass(CreateOrganizationService),
     queryOrganizationUseCase: awilix.asClass(QueryOrganizationService),
     deleteOrganizationUseCase: awilix.asClass(DeleteOrganizationService),

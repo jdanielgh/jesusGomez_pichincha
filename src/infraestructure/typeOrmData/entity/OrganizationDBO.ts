@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { IdOrganization } from "../../../organization/application/domain/idOrganization";
 import { NameOrganization } from "../../../organization/application/domain/NameOrganization";
 import { Organization } from "../../../organization/application/domain/Organization";
