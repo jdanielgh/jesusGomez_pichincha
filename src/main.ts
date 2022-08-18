@@ -5,6 +5,7 @@ import { scopePerRequest } from "awilix-express";
 import container from "./infraestructure/configurations/container";
 import dotenv from "dotenv"
 import morgan from 'morgan';
+import TribeRoute from "./infraestructure/routes/TribeRouter";
 
 dotenv.config()
 
@@ -16,6 +17,7 @@ app.use(morgan('combined'));
 
 // routes
 app.use('/organization', organizationRoute());
+app.use('/tribe', TribeRoute());
 
 
 AppDataSource.initialize()

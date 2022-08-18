@@ -19,7 +19,7 @@ export class SqlOrganizationRepository implements OrganizationRepository {
         this.#logger.log('Executing SqlOrganizationRepository');
         const organizationDBO = OrganizationDBO.fromDomain(organization)
         await this.#dataSource.save(organizationDBO);
-        this.#logger.log(`Created organization with id ${organizationDBO.getIdOrganization}`);
+        this.#logger.log(`Created organization with id ${organizationDBO.idOrganization}`);
         return organization;
     };
 
@@ -28,6 +28,8 @@ export class SqlOrganizationRepository implements OrganizationRepository {
         const organizationsDBO = !!key
             ? await this.#dataSource.findBy({idOrganization: key?.getValue})
             : await this.#dataSource.find();
+        console.log(organizationsDBO);
+        
         return organizationsDBO.map( (organization) => organization.toDomain());
     };
 

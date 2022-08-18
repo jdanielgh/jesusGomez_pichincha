@@ -1,12 +1,13 @@
-export class IdOrganizationTribe {
-    private readonly value: number;
+import { Organization } from "../../../organization/application/domain/Organization";
 
-    constructor(value: number) {
-        if(!!value || value === null) throw new TypeError('idOrganization can not be null');
+export class IdOrganizationsTribe {
+    private readonly value: Organization;
+
+    constructor(value: Organization) {
         this.value = value;
     }
 
-    get getValue(): number {
+    get getValue(): Organization {
         return this.value;
     }
 }

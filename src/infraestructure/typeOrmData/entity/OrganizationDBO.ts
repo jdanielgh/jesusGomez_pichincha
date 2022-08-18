@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { IdOrganization } from "../../../organization/application/domain/idOrganization";
 import { NameOrganization } from "../../../organization/application/domain/NameOrganization";
 import { Organization } from "../../../organization/application/domain/Organization";
 import { StatusOrganization } from "../../../organization/application/domain/StatusOrganization";
+import { TribeDBO } from "./TribeDBO";
 
 @Entity('organization')
 export class OrganizationDBO {
@@ -15,10 +16,15 @@ export class OrganizationDBO {
     @Column()
     status: number;
 
-    constructor(idOrganizacion: number, name: string, status: number) {
+    @OneToMany(() => TribeDBO, (tribe) => tribe.organization)
+    tribes?: TribeDBO[]
+
+
+    constructor(idOrganizacion: number, name: string, status: number, tribes?: TribeDBO[]) {
         this.idOrganization = idOrganizacion;
         this.name = name;
         this.status = status;
+        this.tribes = tribes;
     }
 
     toDomain(): Organization {
@@ -37,27 +43,4 @@ export class OrganizationDBO {
             );
     }
 
-    get getIdOrganization(): number {
-        return this.idOrganization;
-    }
-
-    get getName(): string {
-        return this.name;
-    }
-
-    get getStatus(): number {
-        return this.status;
-    }
-
-    set setIdOrganizacion(id: number) {
-        this.idOrganization = id;
-    }
-
-    set setName(name: string) {
-        this.name = name;
-    }
-
-    set setStatus(status: number) {
-        this.status = status;
-    }
 }

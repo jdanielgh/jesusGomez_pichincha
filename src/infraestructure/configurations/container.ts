@@ -8,6 +8,9 @@ import { DeleteOrganizationService } from "../../organization/application/servic
 import { UpdateOrganizationService } from "../../organization/application/services/UpdateOrganizationService";
 import { GatewayVerificationAPI } from "../adapters/output/GatewayVerificationAPI";
 import axios from "axios";
+import { SqlTribeRepository } from "../adapters/output/SqlTribeRepository";
+import { SqlRepositoryRepository } from "../adapters/output/SqlRepositoryRepository";
+import { GetAllRepositoriesByTribeService } from "../../tribe/application/services/GetAllRepositoriesByTribeService";
 
 const container = awilix.createContainer();
 
@@ -16,11 +19,14 @@ container.register({
     dataSource: awilix.asValue(AppDataSource),
     axios: awilix.asValue(axios),
     organizationRepository: awilix.asClass(SqlOrganizationRepository),
-    gatewayVerificationAPI: awilix.asClass(GatewayVerificationAPI),
+    tribeRepository: awilix.asClass(SqlTribeRepository),
+    repositoryRepository: awilix.asClass(SqlRepositoryRepository),
+    gatewayVerification: awilix.asClass(GatewayVerificationAPI),
     createOrganizationUseCase: awilix.asClass(CreateOrganizationService),
     queryOrganizationUseCase: awilix.asClass(QueryOrganizationService),
     deleteOrganizationUseCase: awilix.asClass(DeleteOrganizationService),
     updateOrganizationUseCase: awilix.asClass(UpdateOrganizationService),
+    getAllRepositoriesByTribeUseCase: awilix.asClass(GetAllRepositoriesByTribeService)
 });
 
 export default container;

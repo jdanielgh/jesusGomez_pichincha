@@ -1,4 +1,4 @@
-import { IdOrganizationTribe } from "./IdOrganizationTribe";
+import { Repository } from "../../../repository/application/domain/Repository";
 import { IdTribe } from "./IdTribe";
 import { NameTribe } from "./NameTribe";
 import { StatusTribe } from "./StatusTribe";
@@ -7,13 +7,13 @@ export class Tribe {
     private readonly id: IdTribe;
     private readonly name: NameTribe;
     private readonly status: StatusTribe;
-    private readonly idOrganization: IdOrganizationTribe;
+    private readonly repositories?: Repository[];
 
-    constructor(id: IdTribe, name: NameTribe, status: StatusTribe, idOrganization: IdOrganizationTribe) {
+    constructor(id: IdTribe, name: NameTribe, status: StatusTribe, repositories?: Repository[]) {
         this.id = id;
         this.name = name;
         this.status = status;
-        this.idOrganization = idOrganization;
+        this.repositories = repositories;
     }
 
     get getId(): IdTribe {
@@ -28,7 +28,7 @@ export class Tribe {
         return this.status;
     }
 
-    get getIdOrganization(): IdOrganizationTribe {
-        return this.idOrganization;
+    get getRepositories(): Repository[] | undefined {
+        return this.repositories;
     }
 }
